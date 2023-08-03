@@ -20,8 +20,8 @@ function NavItem({
 
 export default function Header() {
   return (
-    <header className="bg-maize dark:bg-mblue px-28 py-8">
-      <div className="flex flex-row justify-between items-center mx-auto xl:w-3/6">
+    <header className="bg-maize dark:bg-mblue md:px-14 py-8 px-8">
+      <div className="flex flex-col gap-5 md:flex-row justify-between items-center mx-auto md:w-5/6 xl:w-4/6 2xl:w-3/6">
         <div>
           <span className="flex items-center -mt-2 ml-0.5 font-extralight">
             EECS 281{" "}
@@ -36,13 +36,13 @@ export default function Header() {
               </g>
             </svg>
           </span>
-          <h1 className="text-4xl align-middle font-extrabold">
+          <h1 className="text-3xl md:text-4xl align-middle font-extrabold">
             Autograder{" "}
             <span className="text-black/60 dark:text-white/80">Status</span>
           </h1>
         </div>
         <nav>
-          <ul className="flex gap-3 items-center">
+          <ul className="flex gap-3 items-center whitespace-nowrap">
             <NavItem link="#" active>
               Current Status
             </NavItem>
