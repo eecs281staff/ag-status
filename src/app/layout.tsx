@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${varelaRound.className} dark:text-white dark:bg-pumablack`}
+        className={`${varelaRound.className} dark:bg-pumablack dark:text-white`}
       >
         {children}
       </body>
