@@ -56,8 +56,10 @@ export default function Header() {
           <span
             role="img"
             aria-hidden
-            className="w-8 h-8 border-2 border-green-500 rounded-full bg-cover bg-no-repeat inline-block bg-[url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjU5MSAxNi43ODhsOC45Ny04Ljk3IDIuMTIxIDIuMTIxLTEwLjk4NSAxMC45ODUtLjEwNi0uMTA2LS4xMDYuMTA2LTYuNjY3LTYuNjY3IDIuMTIxLTIuMTIxIDQuNjUyIDQuNjUyeiIgZmlsbD0iIzREQzQ3RSIvPjwvc3ZnPg==)]"
-          ></span>
+            className="w-8 h-8 border-2 border-green-500 rounded-full inline-block text-xl text-green-500 text-center"
+          >
+            ➔
+          </span>
           <div>
             <h2 className="text-lg font-bold">Recommend using: Node A</h2>
             <p className="text-sm text-green-500">All systems operational</p>
