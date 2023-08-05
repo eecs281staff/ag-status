@@ -1,3 +1,6 @@
+import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
+import { Server, Status, ServerStatus } from "@/utils/server-status";
+
 function NavItem({
   children,
   link,
@@ -18,7 +21,34 @@ function NavItem({
   );
 }
 
-export default function Header() {
+export default function Header({
+  servers,
+  status,
+}: {
+  servers: Server[];
+  status: ServerStatus;
+}) {
+  const isStatusComplete: boolean = servers?.every(
+    (s) => status[s.url] !== undefined,
+  );
+  const anyAbnormal: boolean =
+    !status || Object.values(status).some((s) => s.status !== "operational");
+
+  let bestServer: Server | undefined = undefined;
+  let bestLoad: number = Number.MAX_VALUE;
+  if (isStatusComplete) {
+    for (let server of servers) {
+      const s = status[server.url];
+      if (s.status === "down" || s.is_final_grading || !s.is_active) continue;
+
+      const load = (s.num_pending + s.num_grading) / server.capacity;
+      if (!bestServer || load < bestLoad) {
+        bestServer = server;
+        bestLoad = load;
+      }
+    }
+  }
+
   return (
     <header className="bg-maize px-8 pt-8 dark:bg-mblue md:px-14">
       <div className="mx-auto max-w-[1000px] md:w-5/6 xl:w-4/6 2xl:w-3/6">
@@ -52,19 +82,31 @@ export default function Header() {
             </ul>
           </nav>
         </div>
-        <section className="relative top-6 flex flex-row items-center gap-4 rounded-md bg-white p-4 shadow dark:bg-pumablack dark:ring-2 dark:ring-green-800">
-          <span
-            role="img"
-            aria-hidden
-            className="inline-block h-8 w-8 rounded-full border-2 border-green-500 text-center text-xl text-green-500"
-          >
-            ➔
-          </span>
-          <div>
-            <h2 className="text-lg font-bold">Recommend using: Node A</h2>
-            <p className="text-sm text-green-500">All systems operational</p>
-          </div>
-        </section>
+        {!isStatusComplete ? (
+          <MainStatusSkeleton />
+        ) : !bestServer ? (
+          <MainStatus
+            state="down"
+            title="No available server"
+            description="Contact course staff"
+          />
+        ) : anyAbnormal ? (
+          <a href={bestServer.url}>
+            <MainStatus
+              state="degraded"
+              title={`Recommend using ${bestServer.name}`}
+              description="Partial degradation"
+            />
+          </a>
+        ) : (
+          <a href={bestServer.url}>
+            <MainStatus
+              state="operational"
+              title={`Recommend using ${bestServer.name}`}
+              description="All systems operational"
+            />
+          </a>
+        )}
       </div>
     </header>
   );
