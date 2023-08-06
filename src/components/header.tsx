@@ -1,5 +1,6 @@
 import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
 import { Server, ServerStatus } from "@/utils/server-status";
+import Wrapper from "@/utils/wrapper";
 
 function NavItem({
   children,
@@ -13,12 +14,9 @@ function NavItem({
   onClick?: () => void;
 }) {
   const activeItemClass =
-    " text-bold rounded-md bg-black/80 px-2 py-0.5 text-maize dark:bg-white/70 dark:text-mblue";
+    "inline-block text-bold rounded-md bg-black/80 px-2 py-0.5 text-maize dark:bg-white/70 dark:text-mblue";
   return (
-    <li
-      className={"inline-block" + (active ? activeItemClass : "")}
-      onClick={onClick}
-    >
+    <li className={active ? activeItemClass : "inline-block"} onClick={onClick}>
       <a href={link}>{children}</a>
     </li>
   );
@@ -56,8 +54,8 @@ export default function Header({
   }
 
   return (
-    <header className="bg-maize px-8 pt-8 dark:bg-mblue md:px-14">
-      <div className="mx-auto max-w-[1000px] md:w-5/6 xl:w-4/6 2xl:w-3/6">
+    <header className="bg-maize dark:bg-mblue ">
+      <Wrapper>
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
           <div>
             <span className="ml-0.5 flex items-center font-extralight">
@@ -80,6 +78,8 @@ export default function Header({
           </div>
           <nav>
             <ul className="flex items-center gap-3 whitespace-nowrap">
+              <NavItem link="https://www.gradescope.com/">Gradescope</NavItem>
+              <NavItem link="https://piazza.com/">Piazza</NavItem>
               <NavItem
                 link="#"
                 active
@@ -89,8 +89,6 @@ export default function Header({
               >
                 Recheck Status
               </NavItem>
-              <NavItem link="https://piazza.com/">Piazza</NavItem>
-              <NavItem link="https://www.gradescope.com/">Gradescope</NavItem>
             </ul>
           </nav>
         </div>
@@ -123,7 +121,7 @@ export default function Header({
             </a>
           );
         })()}
-      </div>
+      </Wrapper>
     </header>
   );
 }

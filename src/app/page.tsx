@@ -1,6 +1,8 @@
 "use client";
 
 import Header from "@/components/header";
+import Wrapper from "@/utils/wrapper";
+
 import { useState, useEffect } from "react";
 import { Server, ServerStatus, fetchServerStatus } from "@/utils/server-status";
 import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
@@ -51,7 +53,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Header servers={servers} status={status} setStatus={setStatus} />
-      <main className="mx-auto mt-32 max-w-[1000px] px-8 md:w-5/6 xl:w-4/6 2xl:w-3/6">
+      <Wrapper>
         {servers.map((server) =>
           status[server.url] ? (
             <a key={server.url} href={server.url}>
@@ -65,7 +67,7 @@ export default function Home() {
             <MainStatusSkeleton key={server.url} />
           ),
         )}
-      </main>
+      </Wrapper>
     </div>
   );
 }
