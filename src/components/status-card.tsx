@@ -121,8 +121,8 @@ export function ServerStatusSkeleton() {
       <a href="#" className="flex items-center gap-4">
         <LoadingIcon />
         <div className="animate-pulse space-y-3">
-          <h2 className="h-5 w-56 rounded-lg bg-slate-200"></h2>
-          <p className="h-4 w-28 rounded-lg bg-slate-200"></p>
+          <h2 className="h-5 w-20 rounded-lg bg-slate-200 md:w-56"></h2>
+          <p className="h-4 w-16 rounded-lg bg-slate-200 md:w-28"></p>
         </div>
       </a>
       <div className="ml-auto text-right">
