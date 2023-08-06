@@ -87,27 +87,52 @@ export function ServerStatusCard({
   }
 
   return (
-    <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack">
-      <a href={server.url} className="flex basis-5/12 items-center gap-4">
+    <section className="flex flex-row flex-wrap items-center gap-4 px-8 py-4 dark:bg-pumablack">
+      <a href={server.url} className="flex items-center gap-4">
         {icon}
         <div>
           <h2 className="text-lg font-bold">{server.name}</h2>
           <p className={`text-sm ${textColor}`}>{status.reason}</p>
         </div>
       </a>
-      <div className="basis-2/12">
+      <div className="ml-auto text-right">
         <span className={`font-bold ${num_grading_color}`}>
-          {status.state === "down" ? "N/A" : status.num_grading}
+          {status.state === "down"
+            ? "N/A"
+            : status.num_grading.toLocaleString()}
         </span>
         <p className="text-sm">Grading</p>
       </div>
-      <div className="basis-2/12">
+      <div className="text-right">
         <span className={`font-bold ${num_pending_color}`}>
-          {status.state === "down" ? "N/A" : status.num_pending}
+          {status.state === "down"
+            ? "N/A"
+            : status.num_pending.toLocaleString()}
         </span>
         <p className="text-sm">Queued</p>
       </div>
-      <div className="ml-auto">+</div>
+    </section>
+  );
+}
+
+export function ServerStatusSkeleton() {
+  return (
+    <section className="flex flex-row flex-wrap items-center gap-4 px-8 py-4 dark:bg-pumablack">
+      <a href="#" className="flex items-center gap-4">
+        <LoadingIcon />
+        <div className="animate-pulse space-y-3">
+          <h2 className="h-5 w-56 rounded-lg bg-slate-200"></h2>
+          <p className="h-4 w-28 rounded-lg bg-slate-200"></p>
+        </div>
+      </a>
+      <div className="ml-auto text-right">
+        <span className="block h-5 w-full animate-pulse rounded-lg bg-slate-200"></span>
+        <p className="text-sm">Grading</p>
+      </div>
+      <div className="text-right">
+        <span className="block h-5 w-full animate-pulse rounded-lg bg-slate-200"></span>
+        <p className="text-sm">Queued</p>
+      </div>
     </section>
   );
 }

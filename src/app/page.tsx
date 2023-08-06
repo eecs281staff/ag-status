@@ -1,11 +1,15 @@
 "use client";
 
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import Wrapper from "@/utils/wrapper";
 
 import { useState, useEffect } from "react";
 import { Server, ServerStatus, fetchServerStatus } from "@/utils/server-status";
-import { ServerStatusCard, MainStatusSkeleton } from "@/components/status-card";
+import {
+  ServerStatusCard,
+  ServerStatusSkeleton,
+} from "@/components/status-card";
 
 export default function Home() {
   const [servers, setServers] = useState<Server[]>([
@@ -51,7 +55,7 @@ export default function Home() {
   }, [servers, status, inFlight]);
 
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header servers={servers} status={status} setStatus={setStatus} />
       <Wrapper>
         <h2 className="mb-5 text-center text-2xl">Autograder Servers</h2>
@@ -64,11 +68,12 @@ export default function Home() {
                 status={status[server.url]}
               ></ServerStatusCard>
             ) : (
-              <MainStatusSkeleton key={server.url} />
+              <ServerStatusSkeleton key={server.url} />
             ),
           )}
         </div>
       </Wrapper>
+      <Footer />
     </div>
   );
 }
