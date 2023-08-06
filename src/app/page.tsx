@@ -3,6 +3,7 @@
 import Header from "@/components/header";
 import { useState, useEffect } from "react";
 import { Server, ServerStatus, fetchServerStatus } from "@/utils/server-status";
+import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
 
 export default function Home() {
   const [servers, setServers] = useState<Server[]>([
@@ -50,7 +51,21 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Header servers={servers} status={status} />
-      <main className="flex flex-col items-center justify-between p-24"></main>
+      <main className="mx-auto mt-32 max-w-[1000px] px-8 md:w-5/6 xl:w-4/6 2xl:w-3/6">
+        {servers.map((server) =>
+          status[server.url] ? (
+            <a key={server.url} href={server.url}>
+              <MainStatus
+                title={server.name}
+                description={status[server.url].reason}
+                state={status[server.url].status}
+              ></MainStatus>
+            </a>
+          ) : (
+            <MainStatusSkeleton key={server.url} />
+          ),
+        )}
+      </main>
     </div>
   );
 }

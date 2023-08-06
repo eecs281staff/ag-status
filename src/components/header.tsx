@@ -1,5 +1,5 @@
 import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
-import { Server, Status, ServerStatus } from "@/utils/server-status";
+import { Server, ServerStatus } from "@/utils/server-status";
 
 function NavItem({
   children,
