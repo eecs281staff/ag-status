@@ -1,7 +1,7 @@
 // Type definition for a single server status
 export type Status =
   | {
-      status: "operational" | "degraded";
+      state: "operational" | "degraded";
       reason: string;
       is_active: boolean;
       is_final_grading: boolean;
@@ -9,7 +9,7 @@ export type Status =
       num_pending: number;
     }
   | {
-      status: "down";
+      state: "down";
       reason: string;
     };
 
@@ -42,29 +42,29 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
       } catch {}
 
       return {
-        status: "down",
+        state: "down",
         reason: error,
       };
     }
 
     const data = await response.json();
 
-    let status: Status["status"] = "operational";
+    let state: Status["state"] = "operational";
     let reason = "Operational";
 
     if (data.is_final_grading) {
-      status = "degraded";
+      state = "degraded";
       reason = "Final grading in progress";
     } else if (!data.is_active) {
-      status = "degraded";
+      state = "degraded";
       reason = "Submission manually disabled";
     } else if (data.num_grading + data.num_pending >= server.capacity) {
-      status = "degraded";
+      state = "degraded";
       reason = "Busy";
     }
 
     return {
-      status,
+      state,
       reason,
       is_active: data.is_active,
       is_final_grading: data.is_final_grading,
@@ -74,9 +74,8 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
   } catch (error) {
     console.error(error);
     return {
-      status: "down",
+      state: "down",
       reason: `Unreachable from your computer`,
-      
     };
   }
 }

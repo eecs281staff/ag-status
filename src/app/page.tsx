@@ -54,13 +54,14 @@ export default function Home() {
     <div className="min-h-screen">
       <Header servers={servers} status={status} setStatus={setStatus} />
       <Wrapper>
+        <h2 className="text-center text-2xl">AG Servers</h2>
         {servers.map((server) =>
           status[server.url] ? (
             <a key={server.url} href={server.url}>
               <MainStatus
                 title={server.name}
                 description={status[server.url].reason}
-                state={status[server.url].status}
+                state={status[server.url].state}
               ></MainStatus>
             </a>
           ) : (

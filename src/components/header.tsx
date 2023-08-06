@@ -35,7 +35,7 @@ export default function Header({
     (s) => status[s.url] !== undefined,
   );
   const anyAbnormal: boolean =
-    !status || Object.values(status).some((s) => s.status !== "operational");
+    !status || Object.values(status).some((s) => s.state !== "operational");
 
   // Find the server with normal status and the lowest load
   let bestServer: Server | undefined = undefined;
@@ -43,7 +43,7 @@ export default function Header({
   if (isStatusComplete) {
     for (let server of servers) {
       const s = status[server.url];
-      if (s.status === "down" || s.is_final_grading || !s.is_active) continue;
+      if (s.state === "down" || s.is_final_grading || !s.is_active) continue;
 
       const load = (s.num_pending + s.num_grading) / server.capacity;
       if (!bestServer || load < bestLoad) {
@@ -54,7 +54,7 @@ export default function Header({
   }
 
   return (
-    <header className="bg-maize dark:bg-mblue ">
+    <header className="mb-6 bg-maize dark:bg-mblue">
       <Wrapper>
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
           <div>
