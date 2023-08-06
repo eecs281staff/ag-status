@@ -9,17 +9,17 @@ export default function Home() {
   const [servers, setServers] = useState<Server[]>([
     {
       url: "https://eecs281a.eecs.umich.edu/",
-      name: "Node A",
+      name: "Server A",
       capacity: 6,
     },
     {
       url: "https://eecs281b.eecs.umich.edu/",
-      name: "Node B",
+      name: "Server B",
       capacity: 6,
     },
     {
       url: "https://eecs281c.eecs.umich.edu/",
-      name: "Node C",
+      name: "Server C",
       capacity: 6,
     },
   ]);
@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Header servers={servers} status={status} />
+      <Header servers={servers} status={status} setStatus={setStatus} />
       <main className="mx-auto mt-32 max-w-[1000px] px-8 md:w-5/6 xl:w-4/6 2xl:w-3/6">
         {servers.map((server) =>
           status[server.url] ? (

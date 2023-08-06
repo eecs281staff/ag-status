@@ -5,18 +5,21 @@ function NavItem({
   children,
   link,
   active,
+  onClick,
 }: {
   children: React.ReactNode;
   link: string;
   active?: boolean;
+  onClick?: () => void;
 }) {
   const activeItemClass =
     " text-bold rounded-md bg-black/80 px-2 py-0.5 text-maize dark:bg-white/70 dark:text-mblue";
   return (
-    <li className={"inline-block" + (active ? activeItemClass : "")}>
-      <a href={link} rel="noopener" target="_blank">
-        {children}
-      </a>
+    <li
+      className={"inline-block" + (active ? activeItemClass : "")}
+      onClick={onClick}
+    >
+      <a href={link}>{children}</a>
     </li>
   );
 }
@@ -24,9 +27,11 @@ function NavItem({
 export default function Header({
   servers,
   status,
+  setStatus,
 }: {
   servers: Server[];
   status: ServerStatus;
+  setStatus: React.Dispatch<React.SetStateAction<ServerStatus>>;
 }) {
   const isStatusComplete: boolean = servers?.every(
     (s) => status[s.url] !== undefined,
@@ -74,8 +79,14 @@ export default function Header({
           </div>
           <nav>
             <ul className="flex items-center gap-3 whitespace-nowrap">
-              <NavItem link="#" active>
-                Current Status
+              <NavItem
+                link="#"
+                active
+                onClick={() => {
+                  setStatus({});
+                }}
+              >
+                Recheck Status
               </NavItem>
               <NavItem link="https://piazza.com/">Piazza</NavItem>
               <NavItem link="https://www.gradescope.com/">Gradescope</NavItem>
@@ -94,7 +105,7 @@ export default function Header({
           <a href={bestServer.url}>
             <MainStatus
               state="degraded"
-              title={`Recommend using ${bestServer.name}`}
+              title={`Go to ${bestServer.name}`}
               description="Partial degradation"
             />
           </a>
@@ -102,7 +113,7 @@ export default function Header({
           <a href={bestServer.url}>
             <MainStatus
               state="operational"
-              title={`Recommend using ${bestServer.name}`}
+              title={`Go to ${bestServer.name}`}
               description="All systems operational"
             />
           </a>
