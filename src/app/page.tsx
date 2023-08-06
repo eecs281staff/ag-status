@@ -5,7 +5,7 @@ import Wrapper from "@/utils/wrapper";
 
 import { useState, useEffect } from "react";
 import { Server, ServerStatus, fetchServerStatus } from "@/utils/server-status";
-import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
+import { ServerStatusCard, MainStatusSkeleton } from "@/components/status-card";
 
 export default function Home() {
   const [servers, setServers] = useState<Server[]>([
@@ -54,20 +54,20 @@ export default function Home() {
     <div className="min-h-screen">
       <Header servers={servers} status={status} setStatus={setStatus} />
       <Wrapper>
-        <h2 className="text-center text-2xl">AG Servers</h2>
-        {servers.map((server) =>
-          status[server.url] ? (
-            <a key={server.url} href={server.url}>
-              <MainStatus
-                title={server.name}
-                description={status[server.url].reason}
-                state={status[server.url].state}
-              ></MainStatus>
-            </a>
-          ) : (
-            <MainStatusSkeleton key={server.url} />
-          ),
-        )}
+        <h2 className="mb-5 text-center text-2xl">Autograder Servers</h2>
+        <div className="flex flex-col divide-y overflow-hidden rounded-md border dark:divide-slate-600/60 dark:border-slate-600/60 dark:bg-pumablack">
+          {servers.map((server) =>
+            status[server.url] ? (
+              <ServerStatusCard
+                key={server.url}
+                server={server}
+                status={status[server.url]}
+              ></ServerStatusCard>
+            ) : (
+              <MainStatusSkeleton key={server.url} />
+            ),
+          )}
+        </div>
       </Wrapper>
     </div>
   );

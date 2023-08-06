@@ -23,6 +23,13 @@ export type Server = {
 // Type definition for server -> status mapping
 export type ServerStatus = Record<string, Status>;
 
+export const LOAD_THRESHOLDS = [
+  { thres: 0.5, grading: "text-cyan-500", pending: "text-cyan-500" },
+  { thres: 1, grading: "text-amber-400", pending: "text-cyan-500" },
+  { thres: 1.5, grading: "text-rose-400", pending: "text-cyan-500" },
+  { thres: 5, grading: "text-rose-400", pending: "text-amber-400" },
+];
+
 export async function fetchServerStatus(server: Server): Promise<Status> {
   try {
     const response = await Promise.race([
@@ -58,7 +65,10 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
     } else if (!data.is_active) {
       state = "degraded";
       reason = "Submission manually disabled";
-    } else if (data.num_grading + data.num_pending >= server.capacity) {
+    } else if (
+      (data.num_grading + data.num_pending) / server.capacity >=
+      LOAD_THRESHOLDS.slice(-1)[0].thres
+    ) {
       state = "degraded";
       reason = "Busy";
     }

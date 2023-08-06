@@ -1,3 +1,9 @@
+import {
+  Server,
+  Status as ServerStatus,
+  LOAD_THRESHOLDS,
+} from "@/utils/server-status";
+
 interface StatusInfo {
   ringColor: string;
   textColor: string;
@@ -24,19 +30,19 @@ const STATUSES: Record<string, StatusInfo> = {
 
 type StatusType = keyof typeof STATUSES;
 
-interface MainStatusProps {
+interface StatusProps {
   state: StatusType;
   title: string;
   description: string;
 }
 
-const CARD_BASE_CLASS =
+const MAIN_CARD_BASE_CLASS =
   "relative top-6 flex flex-row items-center gap-4 rounded-md bg-white p-4 shadow dark:bg-pumablack dark:ring-2";
 
-export function MainStatus({ state, title, description }: MainStatusProps) {
+export function MainStatus({ state, title, description }: StatusProps) {
   const { ringColor, textColor, icon } = STATUSES[state];
   return (
-    <section className={`${CARD_BASE_CLASS} ${ringColor}`}>
+    <section className={`${MAIN_CARD_BASE_CLASS} ${ringColor}`}>
       {icon}
       <div>
         <h2 className="text-lg font-bold">{title}</h2>
@@ -48,12 +54,60 @@ export function MainStatus({ state, title, description }: MainStatusProps) {
 
 export function MainStatusSkeleton() {
   return (
-    <section className={`${CARD_BASE_CLASS} dark:ring-slate-700`}>
+    <section className={`${MAIN_CARD_BASE_CLASS} dark:ring-slate-700`}>
       <LoadingIcon />
       <div className="w-full animate-pulse space-y-3">
         <h2 className="h-5 w-56 rounded-lg bg-slate-200"></h2>
         <p className="h-4 w-28 rounded-lg bg-slate-200"></p>
       </div>
+    </section>
+  );
+}
+
+export function ServerStatusCard({
+  server,
+  status,
+}: {
+  server: Server;
+  status: ServerStatus;
+}) {
+  const { textColor, icon } = STATUSES[status.state];
+
+  let num_grading_color = "text-rose-400";
+  let num_pending_color = "text-rose-400";
+  if (status.state !== "down") {
+    const load = (status.num_pending + status.num_grading) / server.capacity;
+    for (const { thres, grading, pending } of LOAD_THRESHOLDS) {
+      if (load < thres) {
+        num_grading_color = grading;
+        num_pending_color = pending;
+        break;
+      }
+    }
+  }
+
+  return (
+    <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack">
+      <a href={server.url} className="flex basis-5/12 items-center gap-4">
+        {icon}
+        <div>
+          <h2 className="text-lg font-bold">{server.name}</h2>
+          <p className={`text-sm ${textColor}`}>{status.reason}</p>
+        </div>
+      </a>
+      <div className="basis-2/12">
+        <span className={`font-bold ${num_grading_color}`}>
+          {status.state === "down" ? "N/A" : status.num_grading}
+        </span>
+        <p className="text-sm">Grading</p>
+      </div>
+      <div className="basis-2/12">
+        <span className={`font-bold ${num_pending_color}`}>
+          {status.state === "down" ? "N/A" : status.num_pending}
+        </span>
+        <p className="text-sm">Queued</p>
+      </div>
+      <div className="ml-auto">+</div>
     </section>
   );
 }
