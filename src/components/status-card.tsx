@@ -50,7 +50,7 @@ export function MainStatusSkeleton() {
   return (
     <section className={`${CARD_BASE_CLASS} dark:ring-slate-700`}>
       <LoadingIcon />
-      <div className="w-full animate-pulse space-y-2">
+      <div className="w-full animate-pulse space-y-3">
         <h2 className="h-5 w-56 rounded-lg bg-slate-200"></h2>
         <p className="h-4 w-28 rounded-lg bg-slate-200"></p>
       </div>
