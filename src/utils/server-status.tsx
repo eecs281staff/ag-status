@@ -75,7 +75,8 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
     console.error(error);
     return {
       status: "down",
-      reason: `Cannot reach server from your computer`,
+      reason: `Unreachable from your computer`,
+      
     };
   }
 }
