@@ -39,6 +39,7 @@ export default function Header({
   const anyAbnormal: boolean =
     !status || Object.values(status).some((s) => s.status !== "operational");
 
+  // Find the server with normal status and the lowest load
   let bestServer: Server | undefined = undefined;
   let bestLoad: number = Number.MAX_VALUE;
   if (isStatusComplete) {
@@ -93,31 +94,35 @@ export default function Header({
             </ul>
           </nav>
         </div>
-        {!isStatusComplete ? (
-          <MainStatusSkeleton />
-        ) : !bestServer ? (
-          <MainStatus
-            state="down"
-            title="No available server"
-            description="Contact course staff"
-          />
-        ) : anyAbnormal ? (
-          <a href={bestServer.url}>
-            <MainStatus
-              state="degraded"
-              title={`Go to ${bestServer.name}`}
-              description="Partial degradation"
-            />
-          </a>
-        ) : (
-          <a href={bestServer.url}>
-            <MainStatus
-              state="operational"
-              title={`Go to ${bestServer.name}`}
-              description="All systems operational"
-            />
-          </a>
-        )}
+        {(() => {
+          if (!isStatusComplete) {
+            return <MainStatusSkeleton />;
+          }
+
+          if (!bestServer) {
+            return (
+              <MainStatus
+                state="down"
+                title="No available server"
+                description="Contact course staff"
+              />
+            );
+          }
+
+          return (
+            <a href={bestServer.url}>
+              <MainStatus
+                state={anyAbnormal ? "degraded" : "operational"}
+                title={`Go to ${bestServer.name}`}
+                description={
+                  anyAbnormal
+                    ? "Partial degradation"
+                    : "All systems operational"
+                }
+              />
+            </a>
+          );
+        })()}
       </div>
     </header>
   );
