@@ -2,6 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Varela_Round } from "next/font/google";
 
+import { Providers } from "@/app/providers";
+
 const varelaRound = Varela_Round({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +22,7 @@ export default function RootLayout({
       <body
         className={`${varelaRound.className} dark:bg-pumablack dark:text-white`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
