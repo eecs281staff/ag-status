@@ -12,7 +12,7 @@ export default function Footer() {
               &copy;{" "}
               <a
                 href="https://cse.engin.umich.edu/"
-                className="transition hover:text-maize dark:hover:text-maize/80"
+                className="hover:text-maize dark:hover:text-maize/80"
               >
                 University of Michigan
               </a>

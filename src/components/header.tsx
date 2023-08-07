@@ -10,7 +10,7 @@ function NavItem({
   link: string;
 }) {
   return (
-    <li className="inline-block transition hover:text-slate-50 dark:hover:text-maize/80">
+    <li className="inline-block hover:text-slate-50 dark:hover:text-maize/80">
       <a href={link}>{children}</a>
     </li>
   );
