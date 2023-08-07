@@ -5,18 +5,12 @@ import Wrapper from "@/components/wrapper";
 function NavItem({
   children,
   link,
-  active,
-  onClick,
 }: {
   children: React.ReactNode;
   link: string;
-  active?: boolean;
-  onClick?: () => void;
 }) {
-  const activeItemClass =
-    "inline-block text-bold rounded-md bg-black/80 px-2 py-0.5 text-maize dark:bg-white/70 dark:text-mblue";
   return (
-    <li className={active ? activeItemClass : "inline-block"} onClick={onClick}>
+    <li className="inline-block transition hover:text-slate-50 dark:hover:text-maize/80">
       <a href={link}>{children}</a>
     </li>
   );
@@ -80,15 +74,16 @@ export default function Header({
             <ul className="flex items-center gap-3 whitespace-nowrap">
               <NavItem link="https://www.gradescope.com/">Gradescope</NavItem>
               <NavItem link="https://piazza.com/">Piazza</NavItem>
-              <NavItem
-                link="#"
-                active
+              <button
+                type="button"
+                disabled={!isStatusComplete}
+                className="rounded-md bg-black/80 px-2 py-0.5 font-bold text-maize dark:bg-white/70 dark:text-mblue"
                 onClick={() => {
                   setStatus({});
                 }}
               >
-                Recheck Status
-              </NavItem>
+                {isStatusComplete ? "Recheck Status" : "Processing........"}
+              </button>
             </ul>
           </nav>
         </div>
