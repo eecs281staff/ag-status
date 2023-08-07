@@ -5,7 +5,7 @@ import Footer from "@/components/footer";
 import Wrapper from "@/utils/wrapper";
 
 import { useState, useEffect } from "react";
-import { Server, ServerStatus, fetchServerStatus } from "@/utils/server-status";
+import { ServerStatus, fetchServerStatus } from "@/utils/server-status";
 import {
   ServerStatusCard,
   ServerStatusSkeleton,
@@ -44,7 +44,7 @@ export default function Home() {
       <Header servers={servers} status={status} setStatus={setStatus} />
       <Wrapper>
         <h2 className="mb-5 text-center text-2xl">Autograder Servers</h2>
-        <div className="flex w-full min-w-full flex-col divide-y overflow-hidden rounded-md border dark:divide-slate-600/60 dark:border-slate-600/60 dark:bg-pumablack">
+        <div className="flex flex-col divide-y overflow-hidden rounded-md border dark:divide-slate-600/60 dark:border-slate-600/60 dark:bg-pumablack">
           {servers.map((server) =>
             status[server.url] ? (
               <ServerStatusCard
@@ -53,7 +53,7 @@ export default function Home() {
                 status={status[server.url]}
               ></ServerStatusCard>
             ) : (
-              <ServerStatusSkeleton key={server.url} />
+              <ServerStatusSkeleton key={server.url} server={server} />
             ),
           )}
         </div>
