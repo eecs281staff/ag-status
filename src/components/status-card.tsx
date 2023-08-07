@@ -84,6 +84,9 @@ export function ServerStatusCard({
         break;
       }
     }
+  } else {
+    num_grading_color = "text-gray-300";
+    num_pending_color = "text-gray-300";
   }
 
   return (
