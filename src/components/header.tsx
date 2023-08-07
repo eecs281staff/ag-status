@@ -1,6 +1,6 @@
 import { MainStatus, MainStatusSkeleton } from "@/components/status-card";
 import { Server, ServerStatus } from "@/utils/server-status";
-import Wrapper from "@/utils/wrapper";
+import Wrapper from "@/components/wrapper";
 
 function NavItem({
   children,
@@ -55,7 +55,7 @@ export default function Header({
 
   return (
     <header className="mb-6 bg-maize dark:bg-mblue">
-      <Wrapper>
+      <Wrapper className="pt-8">
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
           <div>
             <span className="ml-0.5 flex items-center font-extralight">
