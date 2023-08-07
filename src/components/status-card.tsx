@@ -129,11 +129,11 @@ export function ServerStatusSkeleton({ server }: { server: Server }) {
         </div>
       </a>
       <div className="ml-auto text-right">
-        <span className="block h-5 w-full animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400"></span>
+        <span className="mb-2 block h-5 w-full animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400"></span>
         <p className="text-sm">Grading</p>
       </div>
       <div className="text-right">
-        <span className="block h-5 w-full animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400"></span>
+        <span className="mb-2 block h-5 w-full animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400"></span>
         <p className="text-sm">Queued</p>
       </div>
     </section>

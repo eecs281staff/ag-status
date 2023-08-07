@@ -32,7 +32,13 @@ export default function Home() {
 
     // fetch all servers that need to be fetched
     toFetch.forEach((server) => {
-      fetchServerStatus(server).then((status) => {
+      // make fetching take at least 300ms to avoid flickering
+      // and to make it look like the page is doing something
+      const delay = Math.random() * 700 + 300;
+      Promise.all([
+        fetchServerStatus(server),
+        new Promise((resolve) => setTimeout(resolve, delay)),
+      ]).then(([status]) => {
         setStatus((prev) => ({ ...prev, [server.url]: status }));
         setInFlight((prev) => ({ ...prev, [server.url]: false }));
       });
