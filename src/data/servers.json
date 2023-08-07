@@ -1,0 +1,17 @@
+[
+    {
+        "url": "https://eecs281a.eecs.umich.edu/",
+        "name": "Server A",
+        "capacity": 6
+    },
+    {
+        "url": "https://eecs281b.eecs.umich.edu/",
+        "name": "Server B",
+        "capacity": 6
+    },
+    {
+        "url": "https://eecs281c.eecs.umich.edu/",
+        "name": "Server C",
+        "capacity": 6
+    }
+]
