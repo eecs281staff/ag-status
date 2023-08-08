@@ -11,7 +11,9 @@ function NavItem({
 }) {
   return (
     <li className="inline-block hover:text-slate-50 dark:hover:text-maize/80">
-      <a href={link}>{children}</a>
+      <a href={link} target="_blank" rel="noopener">
+        {children}
+      </a>
     </li>
   );
 }

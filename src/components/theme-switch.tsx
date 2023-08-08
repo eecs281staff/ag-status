@@ -23,14 +23,16 @@ export default function ThemeSwitch() {
     <Switch
       checked={isDarkMode}
       onChange={() => setTheme(isDarkMode ? "light" : "dark")}
-      className={`${!mounted ? "animate-pulse" : ""}
-      relative inline-flex h-6 w-12 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-maize transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75  dark:bg-mblue`}
+      className={`${
+        !mounted ? "animate-pulse" : ""
+      } relative inline-flex h-6 w-12 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-maize transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75  dark:bg-mblue`}
     >
       <span className="sr-only">Toggle dark mode</span>
       <span
         aria-hidden="true"
-        className={`${!mounted ? "hidden" : ""}
-        pointer-events-none inline-block h-4 w-4 translate-x-0 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out dark:translate-x-7`}
+        className={`${
+          !mounted ? "hidden" : ""
+        } pointer-events-none inline-block h-4 w-4 translate-x-0 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out dark:translate-x-7`}
       >
         {isDarkMode ? MoonIcon() : SunIcon()}
       </span>

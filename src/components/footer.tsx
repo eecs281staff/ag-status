@@ -12,6 +12,8 @@ export default function Footer() {
               &copy;{" "}
               <a
                 href="https://cse.engin.umich.edu/"
+                target="_blank"
+                rel="noopener"
                 className="hover:text-maize dark:hover:text-maize/80"
               >
                 University of Michigan
