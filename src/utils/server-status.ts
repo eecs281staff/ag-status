@@ -64,7 +64,7 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
       reason = "Final grading in progress";
     } else if (!data.is_active) {
       state = "degraded";
-      reason = "Submission manually disabled";
+      reason = "Submission disabled by staff";
     } else if (
       (data.num_grading + data.num_pending) / server.capacity >=
       LOAD_THRESHOLDS.slice(-1)[0].thres
