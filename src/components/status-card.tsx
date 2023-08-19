@@ -76,9 +76,8 @@ export function ServerStatusCard({
   let num_grading_color = "text-rose-400";
   let num_pending_color = "text-rose-400";
   if (status.state !== "down") {
-    const load = (status.num_pending + status.num_grading) / server.capacity;
     for (const { thres, grading, pending } of LOAD_THRESHOLDS) {
-      if (load < thres) {
+      if (status.load < thres) {
         num_grading_color = grading;
         num_pending_color = pending;
         break;

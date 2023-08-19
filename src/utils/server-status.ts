@@ -7,6 +7,7 @@ export type Status =
       is_final_grading: boolean;
       num_grading: number;
       num_pending: number;
+      load: number;
     }
   | {
       state: "down";
@@ -58,6 +59,7 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
 
     let state: Status["state"] = "operational";
     let reason = "Operational";
+    const load = (data.num_grading + data.num_pending) / server.capacity;
 
     if (data.is_final_grading) {
       state = "degraded";
@@ -65,10 +67,7 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
     } else if (!data.is_active) {
       state = "degraded";
       reason = "Submission disabled by staff";
-    } else if (
-      (data.num_grading + data.num_pending) / server.capacity >=
-      LOAD_THRESHOLDS.slice(-1)[0].thres
-    ) {
+    } else if (load >= LOAD_THRESHOLDS.slice(-1)[0].thres) {
       state = "degraded";
       reason = "Busy";
     }
@@ -80,6 +79,7 @@ export async function fetchServerStatus(server: Server): Promise<Status> {
       is_final_grading: data.is_final_grading,
       num_grading: data.num_grading,
       num_pending: data.num_pending,
+      load,
     };
   } catch (error) {
     console.error(error);

@@ -41,10 +41,9 @@ export default function Header({
       const s = status[server.url];
       if (s.state === "down" || s.is_final_grading || !s.is_active) continue;
 
-      const load = (s.num_pending + s.num_grading) / server.capacity;
-      if (!bestServer || load < bestLoad) {
+      if (!bestServer || s.load < bestLoad) {
         bestServer = server;
-        bestLoad = load;
+        bestLoad = s.load;
       }
     }
   }
