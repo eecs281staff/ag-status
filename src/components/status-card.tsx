@@ -90,7 +90,11 @@ export function ServerStatusCard({
 
   return (
     <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack md:px-8">
-      <a href={server.url} className="flex items-center gap-4">
+      <a
+        href={server.url}
+        referrerPolicy="unsafe-url"
+        className="flex items-center gap-4"
+      >
         {icon}
         <div>
           <h2 className="text-lg font-bold">{server.name}</h2>
@@ -120,7 +124,11 @@ export function ServerStatusCard({
 export function ServerStatusSkeleton({ server }: { server: Server }) {
   return (
     <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack md:px-8">
-      <a href={server.url} className="flex items-center gap-4">
+      <a
+        href={server.url}
+        referrerPolicy="unsafe-url"
+        className="flex items-center gap-4"
+      >
         <LoadingIcon />
         <div>
           <h2 className="text-lg font-bold">{server.name}</h2>

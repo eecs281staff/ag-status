@@ -102,7 +102,7 @@ export default function Header({
           }
 
           return (
-            <a href={bestServer.url}>
+            <a href={bestServer.url} referrerPolicy="unsafe-url">
               <MainStatus
                 state={anyAbnormal ? "degraded" : "operational"}
                 title={`Go to ${bestServer.name}`}
