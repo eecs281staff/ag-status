@@ -33,11 +33,18 @@ export default function Header({
   const anyAbnormal: boolean =
     !status || Object.values(status).some((s) => s.state !== "operational");
 
+  // This may cause flashing of the status card on dev server
+  // due to reactStrictMode re-rendering. Not an issue on prod.
+  const shuffledServers = [...servers]
+    .map((v) => ({ v, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ v }) => v);
+
   // Find the server with normal status and the lowest load
   let bestServer: Server | undefined = undefined;
   let bestLoad: number = Number.MAX_VALUE;
   if (isStatusComplete) {
-    for (let server of servers) {
+    for (let server of shuffledServers) {
       const s = status[server.url];
       if (s.state === "down" || s.is_final_grading || !s.is_active) continue;
 
