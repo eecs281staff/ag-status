@@ -105,7 +105,10 @@ export function ServerStatusCard({
         </span>
 
         <div>
-          <a href={server.url} referrerPolicy="unsafe-url">
+          <a
+            href={`${server.url}?utm_source=ag-status&utm_content=list`}
+            referrerPolicy="unsafe-url"
+          >
             <h3 className="text-lg font-bold">{server.name}</h3>
           </a>
           <p className={`text-sm ${textColor}`}>{status.reason}</p>

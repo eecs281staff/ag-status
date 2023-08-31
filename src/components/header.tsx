@@ -109,7 +109,10 @@ export default function Header({
           }
 
           return (
-            <a href={bestServer.url} referrerPolicy="unsafe-url">
+            <a
+              href={`${bestServer.url}?utm_source=ag-status&utm_content=main`}
+              referrerPolicy="unsafe-url"
+            >
               <MainStatus
                 state={anyAbnormal ? "degraded" : "operational"}
                 title={`Go Submit on ${bestServer.name}`}
