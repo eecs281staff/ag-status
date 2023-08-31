@@ -57,8 +57,8 @@ export default function Header({
 
   return (
     <header className="mb-6 bg-maize dark:bg-mblue">
-      <Wrapper className="pt-8">
-        <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
+      <Wrapper className="pt-12">
+        <div className="mb-2 flex flex-col items-center justify-between gap-5 md:flex-row">
           <div>
             <span className="ml-0.5 flex items-center font-extralight">
               EECS 281{" "}
@@ -112,7 +112,7 @@ export default function Header({
             <a href={bestServer.url} referrerPolicy="unsafe-url">
               <MainStatus
                 state={anyAbnormal ? "degraded" : "operational"}
-                title={`Recommended using: ${bestServer.name}`}
+                title={`Go Submit on ${bestServer.name}`}
                 description={
                   anyAbnormal
                     ? "Partial degradation"

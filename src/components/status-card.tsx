@@ -97,7 +97,7 @@ export function ServerStatusCard({
       <span className="flex items-center gap-4">
         <span className="relative flex h-5 w-5">
           <span
-            className={`absolute inline-flex h-full w-full animate-[ping_3s_infinite] rounded-full ${indicatorColor} opacity-75`}
+            className={`absolute inline-flex h-full w-full animate-[ping_5s_infinite] rounded-full ${indicatorColor} opacity-75`}
           ></span>
           <span
             className={`relative inline-flex h-5 w-5 rounded-full ${indicatorColor}`}
