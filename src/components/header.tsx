@@ -112,7 +112,7 @@ export default function Header({
             <a href={bestServer.url} referrerPolicy="unsafe-url">
               <MainStatus
                 state={anyAbnormal ? "degraded" : "operational"}
-                title={`Go to ${bestServer.name}`}
+                title={`Recommended using: ${bestServer.name}`}
                 description={
                   anyAbnormal
                     ? "Partial degradation"

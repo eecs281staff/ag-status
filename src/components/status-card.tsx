@@ -7,6 +7,7 @@ import {
 interface StatusInfo {
   ringColor: string;
   textColor: string;
+  indicatorColor: string;
   icon: React.ReactNode;
 }
 
@@ -14,16 +15,19 @@ const STATUSES: Record<string, StatusInfo> = {
   operational: {
     ringColor: "dark:ring-green-800",
     textColor: "text-green-400",
+    indicatorColor: "bg-green-500",
     icon: <OperationalIcon />,
   },
   degraded: {
     ringColor: "dark:ring-amber-600/80",
     textColor: "text-amber-400",
+    indicatorColor: "bg-amber-400",
     icon: <DegradedIcon />,
   },
   down: {
     ringColor: "dark:ring-rose-800",
     textColor: "text-rose-400",
+    indicatorColor: "bg-rose-500",
     icon: <DownIcon />,
   },
 };
@@ -37,7 +41,7 @@ interface StatusProps {
 }
 
 const MAIN_CARD_BASE_CLASS =
-  "relative top-6 flex flex-row items-center gap-4 rounded-md bg-white p-4 shadow dark:bg-pumablack dark:ring-2";
+  "relative top-6 flex flex-row items-center gap-3 rounded-md bg-white p-4 shadow transition-shadow hover:shadow-md dark:bg-pumablack dark:ring-2 dark:hover:ring-4 sm:gap-4";
 
 export function MainStatus({ state, title, description }: StatusProps) {
   const { ringColor, textColor, icon } = STATUSES[state];
@@ -71,7 +75,7 @@ export function ServerStatusCard({
   server: Server;
   status: ServerStatus;
 }) {
-  const { textColor, icon } = STATUSES[status.state];
+  const { textColor, indicatorColor } = STATUSES[status.state];
 
   let num_grading_color = "text-rose-400";
   let num_pending_color = "text-rose-400";
@@ -89,18 +93,25 @@ export function ServerStatusCard({
   }
 
   return (
-    <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack md:px-8">
-      <a
-        href={server.url}
-        referrerPolicy="unsafe-url"
-        className="flex items-center gap-4"
-      >
-        {icon}
+    <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack md:px-6">
+      <span className="flex items-center gap-4">
+        <span className="relative flex h-5 w-5">
+          <span
+            className={`absolute inline-flex h-full w-full animate-[ping_3s_infinite] rounded-full ${indicatorColor} opacity-75`}
+          ></span>
+          <span
+            className={`relative inline-flex h-5 w-5 rounded-full ${indicatorColor}`}
+          ></span>
+        </span>
+
         <div>
-          <h2 className="text-lg font-bold">{server.name}</h2>
+          <a href={server.url} referrerPolicy="unsafe-url">
+            <h3 className="text-lg font-bold">{server.name}</h3>
+          </a>
           <p className={`text-sm ${textColor}`}>{status.reason}</p>
         </div>
-      </a>
+      </span>
+
       <div className="ml-auto text-right">
         <span className={`text-lg ${num_grading_color}`}>
           {status.state === "down"
@@ -123,18 +134,22 @@ export function ServerStatusCard({
 
 export function ServerStatusSkeleton({ server }: { server: Server }) {
   return (
-    <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack md:px-8">
-      <a
-        href={server.url}
-        referrerPolicy="unsafe-url"
-        className="flex items-center gap-4"
-      >
-        <LoadingIcon />
+    <section className="flex flex-row flex-wrap items-center gap-4 p-4 dark:bg-pumablack md:px-6">
+      <span className="flex items-center gap-4">
+        <span className="relative flex h-5 w-5">
+          <span
+            className={`relative inline-flex h-5 w-5 rounded-full bg-slate-400`}
+          ></span>
+        </span>
+
         <div>
-          <h2 className="text-lg font-bold">{server.name}</h2>
+          <a href={server.url} referrerPolicy="unsafe-url">
+            <h2 className="text-lg font-bold">{server.name}</h2>
+          </a>
           <p className="mt-1 h-4 w-16 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400 md:w-28"></p>
         </div>
-      </a>
+      </span>
+
       <div className="ml-auto text-right">
         <span className="mb-2 block h-5 w-full animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400"></span>
         <p className="text-sm">Grading</p>
