@@ -108,6 +108,16 @@ export function ServerStatusCard({
           <a
             href={`${server.url}?utm_source=ag-status&utm_content=list`}
             referrerPolicy="unsafe-url"
+            onClick={(e) => {
+              if (!localStorage.getItem("main_card_notice_dismissed")) {
+                e.preventDefault();
+                e.stopPropagation();
+                localStorage.setItem("main_card_notice_dismissed", "true");
+                alert(
+                  `Feel free to simply click on the "Go Submit on Server..." card below the page title to use the recommended AG server. Only manually select a server if you have a specific reason* to do so. This would help us to balance load across servers. Thank you.\n\n * If you do have a specific reason, please let us know at eecs281ag@umich.edu, we appreciate your feedback! \n\n This message will not be shown again.`,
+                );
+              }
+            }}
           >
             <h3 className="text-lg font-bold">{server.name}</h3>
           </a>
@@ -146,7 +156,7 @@ export function ServerStatusSkeleton({ server }: { server: Server }) {
         </span>
 
         <div>
-          <a href={server.url} referrerPolicy="unsafe-url">
+          <a href="#" referrerPolicy="unsafe-url">
             <h2 className="text-lg font-bold">{server.name}</h2>
           </a>
           <p className="mt-1 h-4 w-16 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-400 md:w-28"></p>
