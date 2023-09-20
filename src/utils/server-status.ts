@@ -28,7 +28,7 @@ export const LOAD_THRESHOLDS = [
   { thres: 0.5, grading: "text-cyan-500", pending: "text-cyan-500" },
   { thres: 1, grading: "text-amber-400", pending: "text-cyan-500" },
   { thres: 1.5, grading: "text-rose-400", pending: "text-cyan-500" },
-  { thres: 5, grading: "text-rose-400", pending: "text-amber-400" },
+  { thres: 4, grading: "text-rose-400", pending: "text-amber-400" },
 ];
 
 export async function fetchServerStatus(server: Server): Promise<Status> {
