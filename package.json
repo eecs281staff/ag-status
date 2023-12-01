@@ -22,7 +22,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "postcss": "^8.4.28",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.6",
