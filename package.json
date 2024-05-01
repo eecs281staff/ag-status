@@ -11,13 +11,13 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@types/node": "20.12.2",
-    "@types/react": "18.2.73",
+    "@types/react": "18.3.1",
     "@types/react-dom": "18.2.23",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
     "next": "14.1.4",
     "next-themes": "^0.3.0",
-    "react": "18.2.0",
+    "react": "18.3.1",
     "react-dom": "18.2.0",
     "typescript": "5.4.3"
   },
